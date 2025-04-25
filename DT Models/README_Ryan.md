@@ -14,13 +14,6 @@ This project explores multiple machine learning approaches to predict outcomes f
 - **Conclusion Accuracy:** 31%
 - **Recovery Regression:** R² Score = **0.42**
 
-### 🔤 Token Embedding Neural Network
-- **Disposition Accuracy:** 54.5%
-- **Conclusion Accuracy:** 32.5%
-- **Recovery Regression:**
-  - R² Score = **0.16**
-  - MSE = **9.78**
-
 ## 📦 Dataset
 Insurance complaint records including categorical fields (coverage, reason, etc.) and target fields (disposition, conclusion, recovery).
 
