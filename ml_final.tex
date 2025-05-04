@@ -167,6 +167,10 @@ This model performance can be compared to the random forest classification model
   This trend continues from the Logistic Regression Model, suggesting that the models are likely not predicting the disposition correctly, but rather are classifying most data points into the most common category, giving the illusion of correct predictions.
 
   This indicates problems that need to be addressed in training more complex models. One techniques considered is using SMOTE (Synthetic Minority Over-Sampling Technique) to helpe combat the class imbalance in the dataset.
+  \item Nueral Network
+  NN accuracy is 71\% and loss is .86. So accuracy seems okay but we have a lot of loss. This tells us that our neural network can’t  generalize well and is overfit. 
+  Our data is a little tricky in where there’s a lot of classes, some are not so important (noise), so if we wanted to reduce loss more, getting rid of less important classes would probably do the trick.
+  Most of the gain’s in performance for our neural network (and our models in general) would probably come from feature engineering. 
 \end{enumerate}
 
 \subsection{Discussion}
