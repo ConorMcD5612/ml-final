@@ -48,6 +48,14 @@
 \maketitle
 
 \begin{abstract}
+In this project, we analyze consumer insurance complaints using a machine learning pipeline aimed at classifying complaint disposition outcomes. We investigate various modeling techniques—including Logistic Regression, Random Forest, Neural Networks, and XGBoost—to evaluate their effectiveness in handling imbalanced and text-rich datasets. Preprocessing involved one-hot encoding categorical variables, normalizing numerical features, and leveraging pre-trained word embeddings for textual complaint descriptions. While Logistic Regression served as a basic baseline, both Neural Networks and XGBoost outperformed simpler models, achieving higher classification accuracy and more robust F1-scores across multiple classes. XGBoost, in particular, demonstrated strong performance in handling class imbalance and capturing non-linear feature interactions, while Neural Networks excelled in modeling text embeddings to extract nuanced semantic patterns from complaint narratives. Our results indicate that advanced models, when combined with thoughtful feature engineering and data balancing techniques such as SMOTE, can provide significant value in automating and improving the efficiency of complaint resolution workflows in the insurance domain.
+\end{abstract}
+\end{abstract}
+
+\section{Introduction and Problem Definition}
+
+Identifying common reasons for complaints can help insurance companies proactively address issues. Predicting complaint resolution time or recovery amount can assist in optimizing customer support, and analyzing complaint outcomes can provide insight into systemic inefficiencies.
+
 Insurance companies receive many complaints regarding claim handling, policyholder service, underwriting issues, and more. Understanding the patterns in these complaints can help insurance providers improve their services, reduce disputes, and streamline resolution processes.
 
 The primary objectives of our research include:
@@ -57,11 +65,6 @@ The primary objectives of our research include:
   \item Improving complaint resolution processes through intelligent analysis
 \end{enumerate}
 By building Neural Networks and Logistic Regression models with embeddings, we can extract meaningful features from complex complaint data, predict complaint dispositions and recovery amounts with higher accuracy, and provide insights into complaint patterns to assist insurance companies address issues.
-\end{abstract}
-
-\section{Introduction and Problem Definition}
-
-Identifying common reasons for complaints can help insurance companies proactively address issues. Predicting complaint resolution time or recovery amount can assist in optimizing customer support, and analyzing complaint outcomes can provide insight into systemic inefficiencies.
 
 \section{Related Work and Bibliography}
 
@@ -117,14 +120,14 @@ Since insurance claims are abundant and time-consuming to process, machine learn
 
 \subsection{Data Preprocessing}
 \begin{itemize}
-  \item Remove incomplete rows/columns
+  \item Impute incomplete rows/columns
   \item Derived features:
   \begin{itemize}
     \item Complaint duration: Days between 'Closed' and 'Opened'
     \item Text embeddings
   \end{itemize}
   \item Normalize numerical features
-  \item Encode categorical variables
+  \item Encode categorical variables (one-hot)
 \end{itemize}
 
 \subsection{Embedding Strategy}
@@ -133,15 +136,45 @@ Pre-trained embeddings (Word2Vec, GloVe) to represent text features semantically
 \section{Experimental Evaluation}
 
 \subsection{Evaluation Methodology}
-\begin{itemize}
-  \item 70\% train / 20\% test / 10\% validation split
-\end{itemize}
+
+To assess the performance of our models, we used a combination of loss metrics, classification reports, and confusion matrices. These tools provide both high-level and granular insights into how well the models performed on the classification task.
+
+The classification report includes standard performance metrics such as accuracy, precision, recall, and F1-score. Accuracy provides an overall measure of model correctness, while precision and recall offer a deeper understanding of the model’s behavior in distinguishing between specific classes — particularly in identifying false positives and false negatives. The confusion matrix further supports this analysis by visually representing the distribution of predicted versus actual labels.
+
+As a starting point, we implemented two models of varying complexity: logistic regression & random forest. These models served as a baseline for comparison. Logistic regression was chosen because it is a simple, interpretable model that provides a useful reference point. While it lacks the complexity and capacity of more advanced models like neural networks and decision trees, its performance establishes a lower bound against which improvements from more sophisticated models can be measured. 
+
+This model performance can be compared to the random forest classification model, which is slightly more sophisticated and complex. Comparing the results from these two models tells us if our data benefits from a more complex model, and gives us insights into the dataset.
 
 \subsection{Results}
-To be completed.
+\begin{enumerate}
+  \item Logistic Regression (baseline)
+  \begin{itemize}
+    \item accuracy: 0.34
+  \end{itemize}
+  This metric suggests the model is not performing very well. This is expected, as a logistic regression model is much too simple to capture the fine details and correlations in the data.
+  \begin{itemize}
+    \item Low F-1 score for smaller categories, and High F-1 score for large categories.
+  \end{itemize}
+  This shows that the model rarely makes correct predictions for classes with fewer samples, and the high recall indicates there are many false positives in the classifications. This is reflected in the low F-1 score for these classes.
+  \item Random Forest
+  \begin{itemize}
+    \item accuracy: 0.60
+  \end{itemize}
+  This metric shows a significant improvement over the Logistic Regression model, which indicates that the data benefits from a higher degree of model complexity.
+  \begin{itemize}
+    \item Low F-1 score for smaller categories, and High F-1 score for large categories.
+  \end{itemize}
+  This trend continues from the Logistic Regression Model, suggesting that the models are likely not predicting the disposition correctly, but rather are classifying most data points into the most common category, giving the illusion of correct predictions.
+
+  This indicates problems that need to be addressed in training more complex models. One techniques considered is using SMOTE (Synthetic Minority Over-Sampling Technique) to helpe combat the class imbalance in the dataset.
+\end{enumerate}
 
 \subsection{Discussion}
-To be completed.
+Our initial experimentation with baseline models of Linear Regression and Random Forest Classification show two main things:
+\begin{itemize}
+  \item The data benefits from a more complex model to capture fine details and correlations between features.
+  \item The data is severly imbalanced, with a few categories dominating the dataset, which is an issue that needs to be addressed when training subsequent models.
+\end{itemize} 
 
 \section{Conclusion}
 To be completed.
